@@ -1,0 +1,203 @@
+<div class="login-container">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+
+    <div class="carousel">
+
+    <div class="carousel-icon">
+
+        <mat-icon>
+
+            {{ slides[currentSlide].icon }}
+
+        </mat-icon>
+
+    </div>
+
+    <div class="carousel-text">
+
+        <h2>
+
+            {{ slides[currentSlide].title }}
+
+        </h2>
+
+        <p>
+
+            {{ slides[currentSlide].subtitle }}
+
+        </p>
+
+    </div>
+
+    <div class="indicator">
+
+    <!-- <button
+        class="nav-btn"
+        (click)="previousSlide()">
+
+        <mat-icon>chevron_left</mat-icon>
+
+    </button> -->
+
+    @for(slide of slides; track slide; let i=$index){
+
+        <span
+            class="dot"
+            [class.active]="i===currentSlide"
+            (click)="currentSlide=i">
+        </span>
+
+    }
+
+    <!-- <button
+        class="nav-btn"
+        (click)="nextSlide()">
+
+        <mat-icon>chevron_right</mat-icon>
+
+    </button> -->
+
+</div>
+
+</div>
+
+    <div class="footer">
+
+      © 2026 Task Manager
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+
+  <div class="right-panel">
+
+    <mat-card class="login-card">
+
+    <!-- <div class="login-header">
+
+    <div class="logo-box">
+
+        <mat-icon>task_alt</mat-icon>
+
+    </div>
+
+    <h1>Task Manager</h1>
+
+    <p>Enterprise Task Management System</p>
+
+</div> -->
+
+      <h2>Welcome Back</h2>
+
+      <p class="subtitle">
+        Login to continue
+      </p>
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()">
+
+        <mat-form-field
+          appearance="outline"
+          class="full-width">
+
+          <mat-label>Username</mat-label>
+
+          <input
+            matInput
+            formControlName="username"
+            autocomplete="username">
+
+          <mat-icon matPrefix>
+            person
+          </mat-icon>
+
+          @if(loginForm.controls.username.touched &&
+              loginForm.controls.username.invalid){
+
+            <mat-error>
+
+              Username is required
+
+            </mat-error>
+
+          }
+
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="outline"
+          class="full-width">
+
+          <mat-label>Password</mat-label>
+
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="current-password">
+
+          <mat-icon matPrefix>
+            lock
+          </mat-icon>
+
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword=!hidePassword">
+
+            <mat-icon>
+
+              {{
+                hidePassword
+                  ? 'visibility'
+                  : 'visibility_off'
+              }}
+
+            </mat-icon>
+
+          </button>
+
+          @if(loginForm.controls.password.touched &&
+              loginForm.controls.password.invalid){
+
+            <mat-error>
+
+              Password is required
+
+            </mat-error>
+
+          }
+
+        </mat-form-field>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="login-button"
+          [disabled]="loading">
+
+          @if(!loading){
+
+            Login
+
+          } @else {
+
+            <mat-spinner diameter="22"></mat-spinner>
+
+          }
+
+        </button>
+
+      </form>
+
+    </mat-card>
+
+  </div>
+
+</div>

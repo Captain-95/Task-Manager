@@ -1,0 +1,135 @@
+:host {
+
+    display: block;
+
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+
+    border-radius: 12px !important;
+
+}
+
+.dialog-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    padding-top: 8px;
+
+}
+
+.full-width {
+
+    width: 100%;
+
+}
+
+h2[mat-dialog-title] {
+
+    margin: 0;
+
+    padding: 20px 24px;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #ececec;
+
+}
+
+mat-dialog-content {
+
+    padding: 24px !important;
+
+    overflow: hidden;
+
+    max-height: none;
+
+}
+
+mat-dialog-actions {
+
+    padding: 18px 24px !important;
+
+    border-top: 1px solid #ececec;
+
+    gap: 12px;
+
+}
+
+mat-dialog-actions button {
+
+    min-width: 110px;
+
+    height: 42px;
+
+    border-radius: 8px !important;
+
+    font-weight: 600;
+
+}
+
+textarea {
+
+    resize: none !important;
+
+    min-height: 120px;
+
+    line-height: 1.6;
+
+}
+
+.mat-mdc-form-field {
+
+    width: 100%;
+
+}
+
+.mat-mdc-text-field-wrapper {
+
+    border-radius: 8px !important;
+
+}
+
+.mat-mdc-form-field-hint {
+
+    font-size: 12px;
+
+    color: #6b7280;
+
+}
+
+.mat-mdc-form-field-error {
+
+    font-size: 12px;
+
+}
+
+button mat-icon {
+
+    margin-right: 6px;
+
+    font-size: 18px;
+
+}
+
+@media (max-width: 768px) {
+
+    mat-dialog-content {
+
+        padding: 18px !important;
+
+    }
+
+    h2[mat-dialog-title] {
+
+        font-size: 20px;
+
+    }
+
+}

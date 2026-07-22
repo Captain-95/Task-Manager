@@ -1,0 +1,545 @@
+<div class="task-page">
+
+    <!-- ==========================================
+                PAGE HEADER
+    =========================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>
+
+                Task Management
+
+            </h2>
+
+            <p>
+
+                Create, update and manage your daily tasks efficiently.
+
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                mat-flat-button
+                color="primary"
+                class="add-task-btn"
+                matTooltip="Create Task"
+                (click)="addTask()">
+
+                <mat-icon>
+
+                    add
+
+                </mat-icon>
+
+                Add Task
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+                QUICK FILTER
+    =========================================== -->
+
+    <mat-card class="filter-card">
+
+        <div class="filter-header">
+
+            <div class="filter-icon">
+
+                <mat-icon>
+
+                    tune
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Quick Filters
+
+                </h3>
+
+                <span>
+
+                    Search and filter tasks
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="filter-body">
+
+            <!-- SEARCH -->
+
+            <mat-form-field
+                appearance="outline"
+                class="search-field">
+
+                <mat-label>
+
+                    Search Task
+
+                </mat-label>
+
+                <input
+                    matInput
+                    [(ngModel)]="searchText"
+                    (keyup)="applySearch($event)"
+                    placeholder="Search task...">
+
+                <button
+                    mat-icon-button
+                    matSuffix
+                    disabled>
+
+                    <mat-icon>
+
+                        search
+
+                    </mat-icon>
+
+                </button>
+
+            </mat-form-field>
+
+            <!-- STATUS -->
+
+            <mat-form-field
+                appearance="outline"
+                class="status-field">
+
+                <mat-label>
+
+                    Status
+
+                </mat-label>
+
+                <mat-select
+                    multiple
+                    [(value)]="selectedStatus"
+                    (selectionChange)="onStatusChange($event)">
+
+                    <mat-option value="PENDING">
+
+                        Pending
+
+                    </mat-option>
+
+                    <mat-option value="COMPLETED">
+
+                        Completed
+
+                    </mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+            <!-- BUTTONS -->
+
+            <div class="filter-actions">
+
+                <!-- <button
+                    mat-flat-button
+                    color="primary"
+                    matTooltip="Search">
+
+                    <mat-icon>
+
+                        search
+
+                    </mat-icon>
+
+                    Search
+
+                </button> -->
+
+                <button
+                    mat-stroked-button
+                    matTooltip="Clear Filters"
+                    (click)="clearFilters()">
+
+                    <mat-icon>
+
+                        restart_alt
+
+                    </mat-icon>
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <!-- ==========================================
+                    TABLE CARD
+    =========================================== -->
+
+    <mat-card class="table-card">
+
+        <div class="table-header">
+
+            <div>
+
+                <h3>
+
+                    Task List
+
+                </h3>
+
+                <span>
+
+                    {{ dataSource.data.length }} Records Found
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort>
+                <!-- ============================
+        TASK NAME
+============================= -->
+
+<ng-container matColumnDef="name">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header>
+
+        Task Name
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let task">
+
+        <div class="task-name">
+
+            <div class="task-avatar">
+
+                <mat-icon>
+
+                    assignment
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <div class="task-title">
+
+                    {{ task.name }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </td>
+
+</ng-container>
+
+<!-- ============================
+        DESCRIPTION
+============================= -->
+
+<ng-container matColumnDef="description">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef>
+
+        Description
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let task">
+
+        <span class="description">
+
+            {{ task.description || '-' }}
+
+        </span>
+
+    </td>
+
+</ng-container>
+
+<!-- ============================
+        STATUS
+============================= -->
+
+<ng-container matColumnDef="status">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef>
+
+        Status
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let task">
+
+        <span
+            class="status-chip"
+            [ngClass]="{
+
+                'pending' : task.status === 'PENDING',
+
+                'completed' : task.status === 'COMPLETED'
+
+            }">
+
+            <mat-icon>
+
+                {{ task.status === 'COMPLETED'
+                ? 'task_alt'
+                : 'pending_actions' }}
+
+            </mat-icon>
+
+            {{ task.status }}
+
+        </span>
+
+    </td>
+
+</ng-container>
+
+<!-- ============================
+        CREATED DATE
+============================= -->
+
+<ng-container matColumnDef="createdDate">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header>
+
+        Created Date
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let task">
+
+        {{ task.createdDate | date:'dd MMM yyyy' }}
+
+    </td>
+
+</ng-container>
+
+<!-- ============================
+        ACTIONS
+============================= -->
+
+<ng-container matColumnDef="actions">
+
+    <th
+        mat-header-cell
+        *matHeaderCellDef>
+
+        Actions
+
+    </th>
+
+    <td
+        mat-cell
+        *matCellDef="let task">
+
+        <div class="action-buttons">
+
+            <button
+                mat-icon-button
+                color="primary"
+                matTooltip="Edit Task"
+                (click)="editTask(task)">
+
+                <mat-icon>
+
+                    edit
+
+                </mat-icon>
+
+            </button>
+
+            <span class="disabled-wrapper" [class.disabled]="task.status === 'COMPLETED'">
+
+            <button
+                mat-icon-button
+                [disabled]="task.status === 'COMPLETED'"
+                [matTooltip]="task.status === 'COMPLETED'
+                    ? 'Task already completed'
+                    : 'Mark as Completed'"
+                (click)="completeTask(task)">
+
+                <mat-icon>
+                    task_alt
+                </mat-icon>
+
+            </button>
+
+            </span>
+
+            <!-- <button
+                class="action-btn delete-btn"
+                mat-icon-button
+                color="warn"
+                matTooltip="Delete Task"
+                (click)="deleteTask(task)"
+                [disabled]="!isAdmin"
+                [matTooltip]="isAdmin ? 'Delete Task' : 'Only Admin can delete tasks'">
+
+                <mat-icon>
+
+                    delete_outline
+
+                </mat-icon>
+
+            </button> -->
+
+            <span class="disabled-wrapper" [class.disabled]="!isAdmin">
+                <button
+                    mat-icon-button
+                    [disabled]="!isAdmin"
+                    (click)="deleteTask(task)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </span>
+
+        </div>
+
+    </td>
+
+</ng-container>
+
+<!-- ============================
+        HEADER ROW
+============================= -->
+
+<tr
+    mat-header-row
+    *matHeaderRowDef="displayedColumns">
+
+</tr>
+
+<!-- ============================
+        DATA ROW
+============================= -->
+
+<tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns;">
+
+</tr>
+
+<!-- ============================
+        NO DATA ROW
+============================= -->
+
+<tr
+    class="mat-row"
+    *matNoDataRow>
+
+    <td
+        class="mat-cell no-data"
+        colspan="5">
+
+        <mat-icon>
+
+            assignment_late
+
+        </mat-icon>
+
+        <h3>
+
+            No Tasks Found
+
+        </h3>
+
+        <p>
+
+            Try changing your filters or create a new task.
+
+        </p>
+
+    </td>
+
+</tr>
+            </table>
+
+        </div>
+
+        <!-- ==========================================
+                        LOADING
+        =========================================== -->
+
+        @if (loading) {
+
+            <div class="loading-container">
+
+                <mat-spinner
+                    diameter="45">
+
+                </mat-spinner>
+
+                <p>
+
+                    Loading tasks...
+
+                </p>
+
+            </div>
+
+        }
+
+        <!-- ==========================================
+                        PAGINATOR
+        =========================================== -->
+
+        <mat-paginator
+            [pageSize]="10"
+            [pageSizeOptions]="[5,10,20,50]"
+            showFirstLastButtons>
+
+        </mat-paginator>
+
+    </mat-card>
+
+</div>

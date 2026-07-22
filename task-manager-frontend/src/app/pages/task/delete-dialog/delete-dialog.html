@@ -1,0 +1,115 @@
+<h2 mat-dialog-title class="dialog-title">
+
+    <div class="title-section">
+
+        <div class="title-icon">
+
+            <mat-icon>
+
+                delete_forever
+
+            </mat-icon>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                Delete Task
+
+            </h3>
+
+            <span>
+
+                This action is permanent
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <button
+        mat-icon-button
+        class="close-btn"
+        (click)="cancel()">
+
+        <mat-icon>
+
+            close
+
+        </mat-icon>
+
+    </button>
+
+</h2>
+
+<mat-dialog-content>
+
+    <p class="message">
+
+        Are you sure you want to permanently delete this task?
+
+    </p>
+
+    <div class="task-card">
+
+        <div class="task-label">
+
+            Task Name
+
+        </div>
+
+        <div class="task-name">
+
+            {{ data.task.name }}
+
+        </div>
+
+    </div>
+
+    <div class="warning-box">
+
+        <mat-icon>
+
+            warning_amber
+
+        </mat-icon>
+
+        <span>
+
+            This action cannot be undone.
+
+        </span>
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button
+        mat-stroked-button
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-flat-button
+        color="warn"
+        (click)="delete()">
+
+        <mat-icon>
+
+            delete
+
+        </mat-icon>
+
+        Delete
+
+    </button>
+
+</mat-dialog-actions>

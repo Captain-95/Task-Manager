@@ -1,0 +1,118 @@
+<mat-toolbar class="header">
+
+    <div class="logo-section">
+
+        <div class="logo">
+
+            <mat-icon>task_alt</mat-icon>
+
+        </div>
+
+        <span class="title">
+
+            Task Manager
+
+        </span>
+
+    </div>
+
+    <div class="menu">
+
+        <a
+            mat-button
+            routerLink="/dashboard"
+            routerLinkActive="active-link">
+
+            <mat-icon>dashboard</mat-icon>
+
+            Dashboard
+
+        </a>
+
+        <a
+            mat-button
+            routerLink="/tasks"
+            routerLinkActive="active-link">
+
+            <mat-icon>assignment</mat-icon>
+
+            Tasks
+
+        </a>
+
+    </div>
+
+    <span class="spacer"></span>
+
+    <button
+        mat-icon-button>
+
+        <mat-icon>
+
+            notifications_none
+
+        </mat-icon>
+
+    </button>
+
+    <button
+        class="avatar-btn"
+        mat-button
+        [matMenuTriggerFor]="profileMenu">
+
+        <div class="avatar">
+
+            {{ initial }}
+
+        </div>
+
+        <mat-icon>
+
+            keyboard_arrow_down
+
+        </mat-icon>
+
+    </button>
+
+    <mat-menu
+        #profileMenu="matMenu">
+
+        <div class="user-info">
+
+            <div class="avatar-large">
+
+                {{ initial }}
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    {{ username }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <button
+            mat-menu-item
+            (click)="logout()">
+
+            <mat-icon>
+
+                logout
+
+            </mat-icon>
+
+            Logout
+
+        </button>
+
+    </mat-menu>
+
+</mat-toolbar>

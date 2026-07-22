@@ -1,0 +1,500 @@
+/* ==========================================================
+   TASK PAGE
+========================================================== */
+
+.task-page {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 24px;
+
+    padding: 24px;
+
+    background: #f4f7fb;
+
+    min-height: calc(100vh - 70px);
+
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.page-header h2 {
+
+    margin: 0;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+.page-header p {
+
+    margin-top: 6px;
+
+    color: #6b7280;
+
+    font-size: 15px;
+
+}
+
+.header-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+}
+
+.add-task-btn {
+
+    height: 46px !important;
+
+    padding: 0 24px !important;
+
+    border-radius: 10px !important;
+
+    font-weight: 600;
+
+    box-shadow: 0 4px 14px rgba(21,101,192,.25);
+
+}
+
+.add-task-btn mat-icon {
+
+    margin-right: 6px;
+
+}
+
+/* ==========================================================
+   FILTER CARD
+========================================================== */
+
+.filter-card {
+
+    border-radius: 14px !important;
+
+    box-shadow: 0 2px 18px rgba(0,0,0,.05) !important;
+
+    background: white;
+
+    border: 1px solid #edf2f7;
+
+    overflow: hidden;
+
+}
+
+/* ==========================================================
+   FILTER HEADER
+========================================================== */
+
+.filter-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #eef2f7;
+
+}
+
+.filter-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    border-radius: 14px;
+
+    background: #e3f2fd;
+
+    color: #1565c0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.filter-icon mat-icon {
+
+    font-size: 28px;
+
+    width: 28px;
+
+    height: 28px;
+
+}
+
+.filter-header h3 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+.filter-header span {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+/* ==========================================================
+   FILTER BODY
+========================================================== */
+
+.filter-body {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    padding: 24px;
+
+}
+
+.search-field {
+
+    flex: 1;
+
+}
+
+.status-field {
+
+    width: 280px;
+
+}
+
+.filter-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+}
+
+.filter-actions button {
+
+    height: 56px;
+
+    border-radius: 10px !important;
+
+    font-weight: 600;
+
+}
+
+/* ==========================================================
+   TABLE CARD
+========================================================== */
+
+.table-card {
+
+    background: #ffffff;
+
+    border-radius: 14px !important;
+
+    box-shadow: 0 2px 18px rgba(0,0,0,.05) !important;
+
+    border: 1px solid #edf2f7;
+
+    overflow: hidden;
+
+}
+
+.table-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid #eef2f7;
+
+}
+
+.table-header h3 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+.table-header span {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.table-wrapper{
+
+    overflow:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse: collapse;
+
+}
+
+.mat-mdc-header-row{
+
+    height:60px;
+
+    background:#f8fafc;
+
+}
+
+.mat-mdc-header-cell{
+
+    color:#334155;
+
+    font-weight:700;
+
+    font-size:14px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+.mat-mdc-row{
+
+    height:68px;
+
+    transition:.25s;
+
+}
+
+.mat-mdc-row:hover{
+
+    background:#f8fbff;
+
+}
+
+.mat-mdc-cell{
+
+    color:#374151;
+
+    border-bottom:1px solid #eef2f7;
+
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell{
+
+    padding-left:22px !important;
+
+    padding-right:22px !important;
+
+}
+
+/* ==========================================================
+   TASK NAME
+========================================================== */
+
+.task-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.task-avatar{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:12px;
+
+    background:#e3f2fd;
+
+    color:#1565c0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-shrink:0;
+
+}
+
+.task-avatar mat-icon{
+
+    font-size:22px;
+
+    width:22px;
+
+    height:22px;
+
+}
+
+.task-name strong{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#1f2937;
+
+}
+
+/* ==========================================================
+   STATUS CHIP
+========================================================== */
+
+.status-chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:110px;
+
+    height:34px;
+
+    border-radius:18px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:capitalize;
+
+}
+
+.pending{
+
+    background:#fff7e6;
+
+    color:#d97706;
+
+    border:1px solid #fed7aa;
+
+}
+
+.completed{
+
+    background:#ecfdf3;
+
+    color:#15803d;
+
+    border:1px solid #bbf7d0;
+
+}
+
+/* ==========================================================
+   ACTION BUTTONS
+========================================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+.action-buttons button{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    transition:.25s;
+
+}
+
+.action-buttons button:hover{
+
+    background:#f1f5f9;
+
+}
+
+.action-buttons mat-icon{
+
+    font-size:20px;
+
+}
+
+.delete-btn:disabled {
+  background: #f2f2f2;
+  border-color: #d9d9d9;
+  cursor: not-allowed !important;
+}
+
+.delete-btn:disabled .mat-icon {
+  color: #b5b5b5;
+}
+
+.disabled-wrapper.disabled {
+    cursor: not-allowed;
+}
+
+.disabled-wrapper.disabled button {
+    pointer-events: none;
+    opacity: .45;
+}
+
+.disabled-wrapper.disabled .mat-icon {
+    color: #bdbdbd;
+}

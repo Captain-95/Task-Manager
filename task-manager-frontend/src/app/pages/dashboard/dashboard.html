@@ -1,0 +1,305 @@
+<div class="dashboard-page">
+
+    <div
+        class="loading-overlay"
+        *ngIf="loading">
+
+        <mat-spinner diameter="55"></mat-spinner>
+
+    </div>
+
+    <ng-container *ngIf="!loading && summary">
+
+        <!-- ================================================= -->
+        <!-- Header -->
+        <!-- ================================================= -->
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <h1>
+
+                    Welcome Back
+
+                </h1>
+
+                <p>
+
+                    Track your team's productivity and monitor task progress in real time.
+
+                </p>
+
+            </div>
+
+            <div class="dashboard-date">
+
+                <mat-icon>
+
+                    calendar_today
+
+                </mat-icon>
+
+                {{ today | date:'dd MMM yyyy' }}
+
+            </div>
+
+        </div>
+
+        <!-- ================================================= -->
+        <!-- Summary Cards -->
+        <!-- ================================================= -->
+
+        <div class="stats-grid">
+
+            <!-- Total -->
+
+            <mat-card class="stat-card total-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <p class="stat-title">
+
+                            Total Tasks
+
+                        </p>
+
+                        <h2>
+
+                            {{ summary.totalTasks }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon total">
+
+                        <mat-icon>
+
+                            assignment
+
+                        </mat-icon>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-footer">
+
+                    Overall tasks in the system
+
+                </div>
+
+            </mat-card>
+
+            <!-- Pending -->
+
+            <mat-card class="stat-card pending-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <p class="stat-title">
+
+                            Pending
+
+                        </p>
+
+                        <h2>
+
+                            {{ summary.pendingTasks }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon pending">
+
+                        <mat-icon>
+
+                            pending_actions
+
+                        </mat-icon>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-footer">
+
+                    {{ pendingPercentage }}% of total tasks
+
+                </div>
+
+            </mat-card>
+
+            <!-- Completed -->
+
+            <mat-card class="stat-card completed-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <p class="stat-title">
+
+                            Completed
+
+                        </p>
+
+                        <h2>
+
+                            {{ summary.completedTasks }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon completed">
+
+                        <mat-icon>
+
+                            task_alt
+
+                        </mat-icon>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-footer">
+
+                    {{ completionPercentage }}% completion rate
+
+                </div>
+
+            </mat-card>
+
+            <!-- Today -->
+
+            <mat-card class="stat-card today-card">
+
+                <div class="stat-top">
+
+                    <div>
+
+                        <p class="stat-title">
+
+                            Created Today
+
+                        </p>
+
+                        <h2>
+
+                            {{ summary.todayTasks }}
+
+                        </h2>
+
+                    </div>
+
+                    <div class="stat-icon today">
+
+                        <mat-icon>
+
+                            today
+
+                        </mat-icon>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-footer">
+
+                    Tasks added today
+
+                </div>
+
+            </mat-card>
+
+        </div>
+
+        <!-- Charts -->
+
+        <div class="charts-grid">
+
+            <!-- Doughnut -->
+
+            <mat-card class="chart-card">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h3>Task Status</h3>
+
+                    <p>Pending vs Completed</p>
+
+                </div>
+
+            </div>
+
+            <div class="doughnut-body">
+
+                <canvas
+
+                    #statusChart
+
+                    baseChart
+
+                    [data]="doughnutChartData"
+
+                    [options]="doughnutChartOptions"
+
+                    [type]="'doughnut'">
+
+                </canvas>
+
+            </div>
+
+            </mat-card>
+
+            <!-- Weekly -->
+
+            <mat-card class="chart-card">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <h3>Weekly Activity</h3>
+
+                        <p>Tasks created this week</p>
+
+                    </div>
+
+                </div>
+
+                <div class="line-body">
+
+                    <canvas
+
+                        #weeklyChart
+
+                        baseChart
+
+                        [data]="lineChartData"
+
+                        [options]="lineChartOptions"
+
+                        [type]="'line'">
+
+                    </canvas>
+
+                </div>
+
+        </mat-card>
+
+        </div>
+
+    </ng-container>
+
+</div>

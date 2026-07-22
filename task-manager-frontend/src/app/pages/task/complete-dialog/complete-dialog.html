@@ -1,0 +1,100 @@
+<h2 mat-dialog-title class="dialog-title">
+
+    <div class="title-section">
+
+        <div class="title-icon">
+
+            <mat-icon>
+
+                task_alt
+
+            </mat-icon>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                Complete Task
+
+            </h3>
+
+            <span>
+
+                Confirm task completion
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <button
+        mat-icon-button
+        class="close-btn"
+        (click)="cancel()">
+
+        <mat-icon>
+
+            close
+
+        </mat-icon>
+
+    </button>
+
+</h2>
+
+<mat-dialog-content>
+
+    <p class="message">
+
+        Are you sure you want to mark this task as
+        <strong>Completed</strong>?
+
+    </p>
+
+    <div class="task-card">
+
+        <div class="task-label">
+
+            Task Name
+
+        </div>
+
+        <div class="task-name">
+
+            {{ data.task.name }}
+
+        </div>
+
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button
+        mat-stroked-button
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-flat-button
+        color="primary"
+        (click)="confirm()">
+
+        <mat-icon>
+
+            task_alt
+
+        </mat-icon>
+
+        Complete
+
+    </button>
+
+</mat-dialog-actions>
