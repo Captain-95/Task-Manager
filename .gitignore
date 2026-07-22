@@ -1,0 +1,19 @@
+# Angular
+task-manager-frontend/node_modules/
+task-manager-frontend/dist/
+task-manager-frontend/.angular/
+
+# Spring Boot
+task-manager-backend/target/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
