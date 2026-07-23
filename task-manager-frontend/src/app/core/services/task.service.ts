@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Task } from '../../models/task';
 import { TaskRequest } from '../../models/task-request';
+import { TaskFilter } from '../../models/task-filter';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class TaskService {
   getAllTasks(): Observable<Task[]> {
 
     return this.http.get<Task[]>(this.API);
+
+  }
+  searchTasks(filter: TaskFilter) {
+
+    return this.http.post<Task[]>(
+      `${this.API}/search`,
+      filter
+    );
 
   }
 
