@@ -10,9 +10,7 @@
         [formGroup]="form"
         class="dialog-form">
 
-        <!-- =========================
-                TASK NAME
-        ========================== -->
+        <!-- Task Name -->
 
         <mat-form-field
             appearance="outline"
@@ -36,31 +34,53 @@
 
             </mat-hint>
 
-            @if(form.get('name')?.hasError('required')){
+            <mat-error *ngIf="form.get('name')?.hasError('required')">
 
-                <mat-error>
+                Task Name is required
 
-                    Task Name is required
-
-                </mat-error>
-
-            }
-
-            @if(form.get('name')?.hasError('maxlength')){
-
-                <mat-error>
-
-                    Maximum 150 characters allowed
-
-                </mat-error>
-
-            }
+            </mat-error>
 
         </mat-form-field>
 
-        <!-- =========================
-                DESCRIPTION
-        ========================== -->
+        <!-- Assign To -->
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width">
+
+            <mat-label>
+
+                Assign To
+
+            </mat-label>
+
+            <mat-select formControlName="assignedUserId">
+
+                <mat-option
+                    *ngFor="let user of users"
+                    [value]="user.id">
+
+                    <mat-icon>
+
+                        person
+
+                    </mat-icon>
+
+                    {{ user.username }}
+
+                </mat-option>
+
+            </mat-select>
+
+            <mat-error>
+
+                Please select a user
+
+            </mat-error>
+
+        </mat-form-field>
+
+        <!-- Description -->
 
         <mat-form-field
             appearance="outline"
@@ -73,15 +93,10 @@
             </mat-label>
 
             <textarea
-
                 matInput
-
                 rows="5"
-
                 maxlength="500"
-
                 formControlName="description"
-
                 placeholder="Enter task description">
 
             </textarea>
@@ -91,16 +106,6 @@
                 {{ form.get('description')?.value?.length || 0 }} / 500
 
             </mat-hint>
-
-            @if(form.get('description')?.hasError('maxlength')){
-
-                <mat-error>
-
-                    Maximum 500 characters allowed
-
-                </mat-error>
-
-            }
 
         </mat-form-field>
 
@@ -112,7 +117,6 @@
 
     <button
         mat-stroked-button
-        type="button"
         (click)="close()">
 
         Cancel
@@ -122,7 +126,6 @@
     <button
         mat-flat-button
         color="primary"
-        type="button"
         (click)="save()">
 
         <mat-icon>

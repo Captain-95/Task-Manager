@@ -1,7 +1,6 @@
 package com.taskmanager.repository;
 
 import com.taskmanager.model.Task;
-import com.taskmanager.model.TaskStatus;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
@@ -24,26 +23,26 @@ public class TaskStore {
 
     @PostConstruct
     public void seed() {
-        save(Task.builder()
-                .name("Set up project repository")
-                .description("Initialize backend and frontend repos with base structure")
-                .status(TaskStatus.COMPLETED)
-                .createdDate(LocalDateTime.now().minusDays(2))
-                .build());
-
-        save(Task.builder()
-                .name("Design REST API contracts")
-                .description("Define endpoints for tasks CRUD and dashboard summary")
-                .status(TaskStatus.COMPLETED)
-                .createdDate(LocalDateTime.now().minusDays(1))
-                .build());
-
-        save(Task.builder()
-                .name("Implement JWT authentication")
-                .description("Add login, role-based access and token validation")
-                .status(TaskStatus.PENDING)
-                .createdDate(LocalDateTime.now())
-                .build());
+//        save(Task.builder()
+//                .name("Set up project repository")
+//                .description("Initialize backend and frontend repos with base structure")
+//                .status(TaskStatus.COMPLETED)
+//                .createdDate(LocalDateTime.now().minusDays(2))
+//                .build());
+//
+//        save(Task.builder()
+//                .name("Design REST API contracts")
+//                .description("Define endpoints for tasks CRUD and dashboard summary")
+//                .status(TaskStatus.COMPLETED)
+//                .createdDate(LocalDateTime.now().minusDays(1))
+//                .build());
+//
+//        save(Task.builder()
+//                .name("Implement JWT authentication")
+//                .description("Add login, role-based access and token validation")
+//                .status(TaskStatus.PENDING)
+//                .createdDate(LocalDateTime.now())
+//                .build());
     }
 
     public List<Task> findAll() {

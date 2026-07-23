@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -17,6 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+
+import { UserService } from '../../../core/services/user.service';
+import { UserDropdown } from '../../../models/user-dropdown';
 
 @Component({
   selector: 'app-task-dialog',
@@ -31,12 +35,16 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ]
 })
-export class TaskDialog {
+export class TaskDialog implements OnInit {
 
   private fb = inject(FormBuilder);
+  private cdr = inject(ChangeDetectorRef);
+
+  private userService = inject(UserService);
 
   dialogRef = inject(MatDialogRef<TaskDialog>);
 
@@ -46,6 +54,8 @@ export class TaskDialog {
   ) {}
 
   readonly MAX_DESCRIPTION = 500;
+
+  users: UserDropdown[] = [];
 
   form = this.fb.group({
 
@@ -57,16 +67,18 @@ export class TaskDialog {
       ]
     ],
 
+    assignedUserId: [null as number | null, Validators.required],
+
     description: [
       '',
-      [
-        Validators.maxLength(this.MAX_DESCRIPTION)
-      ]
+      Validators.maxLength(this.MAX_DESCRIPTION)
     ]
 
   });
 
   ngOnInit(): void {
+
+    this.loadUsers();
 
     if (this.data?.mode === 'EDIT') {
 
@@ -74,12 +86,23 @@ export class TaskDialog {
 
         name: this.data.task.name,
 
-        description: this.data.task.description
+        description: this.data.task.description,
+
+        assignedUserId: this.data.task.userId
 
       });
 
     }
 
+  }
+
+  loadUsers(): void {
+    this.userService.getAssignableUsers().subscribe({
+      next: users => {
+        this.users = users;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   save(): void {
@@ -92,7 +115,7 @@ export class TaskDialog {
 
     }
 
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close(this.form.getRawValue());
 
   }
 

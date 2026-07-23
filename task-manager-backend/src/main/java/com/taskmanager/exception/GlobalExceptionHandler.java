@@ -1,5 +1,6 @@
 package com.taskmanager.exception;
 
+import com.taskmanager.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -48,6 +49,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception ex) {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedTaskAccessException.class)
+    public ResponseEntity<ApiResponse> handleUnauthorizedTaskAccess(UnauthorizedTaskAccessException ex) {
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ApiResponse.builder()
+                        .success(false)
+                        .message(ex.getMessage())
+                        .build());
+
     }
 
     private ResponseEntity<ApiError> build(HttpStatus status, String message) {

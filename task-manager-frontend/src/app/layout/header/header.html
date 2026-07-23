@@ -1,10 +1,31 @@
 <mat-toolbar class="header">
 
+    <!-- Mobile Hamburger -->
+
+    <button
+        mat-icon-button
+        class="hamburger-btn"
+        (click)="openMenu()">
+
+        <mat-icon>
+
+            menu
+
+        </mat-icon>
+
+    </button>
+
+    <!-- Logo -->
+
     <div class="logo-section">
 
         <div class="logo">
 
-            <mat-icon>task_alt</mat-icon>
+            <mat-icon>
+
+                task_alt
+
+            </mat-icon>
 
         </div>
 
@@ -16,6 +37,8 @@
 
     </div>
 
+    <!-- Desktop Menu -->
+
     <div class="menu">
 
         <a
@@ -23,7 +46,11 @@
             routerLink="/dashboard"
             routerLinkActive="active-link">
 
-            <mat-icon>dashboard</mat-icon>
+            <mat-icon>
+
+                dashboard
+
+            </mat-icon>
 
             Dashboard
 
@@ -34,7 +61,11 @@
             routerLink="/tasks"
             routerLinkActive="active-link">
 
-            <mat-icon>assignment</mat-icon>
+            <mat-icon>
+
+                assignment
+
+            </mat-icon>
 
             Tasks
 
@@ -44,8 +75,7 @@
 
     <span class="spacer"></span>
 
-    <button
-        mat-icon-button>
+    <button mat-icon-button>
 
         <mat-icon>
 
@@ -74,8 +104,7 @@
 
     </button>
 
-    <mat-menu
-        #profileMenu="matMenu">
+    <mat-menu #profileMenu="matMenu">
 
         <div class="user-info">
 

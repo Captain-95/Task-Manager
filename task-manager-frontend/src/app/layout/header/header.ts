@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -9,9 +9,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { StorageService } from '../../core/services/storage.service';
-import { MatSidenav } from '@angular/material/sidenav';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-header',
@@ -24,29 +21,15 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatListModule,
+    MatDividerModule
   ],
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
 export class Header {
 
-  @ViewChild('drawer')
-  drawer!: MatSidenav;
-
-  isMobileMenuOpen = false;
-
-  toggleMenu(): void {
-
-    this.drawer.toggle();
-
-  }
+  @Output()
+  menuClick = new EventEmitter<void>();
 
   private storage = inject(StorageService);
 
@@ -56,6 +39,12 @@ export class Header {
 
   get initial(): string {
     return this.username.charAt(0).toUpperCase();
+  }
+
+  openMenu(): void {
+
+    this.menuClick.emit();
+
   }
 
   logout(): void {

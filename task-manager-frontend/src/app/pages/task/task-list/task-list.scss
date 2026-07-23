@@ -1,6 +1,3 @@
-/* ==========================================================
-   TASK PAGE
-========================================================== */
 
 .task-page {
 
@@ -17,9 +14,6 @@
 
 }
 
-/* ==========================================================
-   PAGE HEADER
-========================================================== */
 
 .page-header {
 
@@ -81,9 +75,7 @@
 
 }
 
-/* ==========================================================
-   FILTER CARD
-========================================================== */
+
 
 .filter-card {
 
@@ -99,9 +91,7 @@
 
 }
 
-/* ==========================================================
-   FILTER HEADER
-========================================================== */
+
 
 .filter-header {
 
@@ -167,9 +157,7 @@
 
 }
 
-/* ==========================================================
-   FILTER BODY
-========================================================== */
+
 
 .filter-body {
 
@@ -215,9 +203,6 @@
 
 }
 
-/* ==========================================================
-   TABLE CARD
-========================================================== */
 
 .table-card {
 
@@ -267,9 +252,7 @@
 
 }
 
-/* ==========================================================
-   TABLE
-========================================================== */
+
 
 .table-wrapper{
 
@@ -336,9 +319,7 @@ table{
 
 }
 
-/* ==========================================================
-   TASK NAME
-========================================================== */
+
 
 .task-name{
 
@@ -392,9 +373,7 @@ table{
 
 }
 
-/* ==========================================================
-   STATUS CHIP
-========================================================== */
+
 
 .status-chip{
 
@@ -438,9 +417,7 @@ table{
 
 }
 
-/* ==========================================================
-   ACTION BUTTONS
-========================================================== */
+
 
 .action-buttons{
 
@@ -497,4 +474,397 @@ table{
 
 .disabled-wrapper.disabled .mat-icon {
     color: #bdbdbd;
+}
+
+.user-chip{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-weight:600;
+
+}
+
+.user-chip mat-icon{
+
+    color:#1976d2;
+
+    font-size:18px;
+
+}
+
+.creator mat-icon{
+
+    color:#43a047;
+
+}
+
+.action-buttons button:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+}
+
+.action-buttons button:disabled mat-icon{
+
+    color:#bdbdbd;
+
+}
+
+
+
+@media (max-width: 1024px) {
+
+    .task-page {
+
+        padding: 20px;
+
+    }
+
+    .page-header {
+
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+
+    }
+
+    .header-actions {
+
+        width: 100%;
+
+    }
+
+    .add-task-btn {
+
+        width: 100%;
+
+    }
+
+    .filter-body {
+
+        flex-wrap: wrap;
+
+    }
+
+    .search-field {
+
+        width: 100%;
+        flex: 100%;
+
+    }
+
+    .status-field {
+
+        flex: 1;
+        min-width: 240px;
+
+    }
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    .task-page {
+
+        padding: 16px;
+        gap: 16px;
+
+    }
+
+    /* Header */
+
+    .page-header {
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+
+    }
+
+    .page-header h2 {
+
+        font-size: 26px;
+        line-height: 1.2;
+
+    }
+
+    .page-header p {
+
+        font-size: 14px;
+
+    }
+
+    .header-actions {
+
+        width: 100%;
+
+    }
+
+    .add-task-btn {
+
+        width: 100%;
+        height: 48px !important;
+
+    }
+
+    /* Filter */
+
+    .filter-header {
+
+        padding: 18px;
+
+    }
+
+    .filter-icon {
+
+        width: 46px;
+        height: 46px;
+
+    }
+
+    .filter-icon mat-icon {
+
+        font-size: 24px;
+
+    }
+
+    .filter-header h3 {
+
+        font-size: 18px;
+
+    }
+
+    .filter-body {
+
+        flex-direction: column;
+        gap: 16px;
+        padding: 18px;
+
+    }
+
+    .search-field,
+    .status-field {
+
+        width: 100%;
+
+    }
+
+    .filter-actions {
+
+        width: 100%;
+
+    }
+
+    .filter-actions button {
+
+        width: 100%;
+
+    }
+
+    /* Table */
+
+    .table-header {
+
+        padding: 18px;
+
+    }
+
+    .table-header h3 {
+
+        font-size: 18px;
+
+    }
+
+    .table-wrapper {
+
+        overflow-x: auto;
+
+    }
+
+    table {
+
+        min-width: 760px;
+
+    }
+
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+
+    }
+
+    /* Task */
+
+    .task-name {
+
+        gap: 10px;
+
+    }
+
+    .task-avatar {
+
+        width: 36px;
+        height: 36px;
+
+    }
+
+    .task-avatar mat-icon {
+
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+
+    }
+
+    .task-title {
+
+        font-size: 14px;
+
+    }
+
+    /* Status */
+
+    .status-chip {
+
+        min-width: auto;
+        padding: 6px 12px;
+        font-size: 11px;
+        height: auto;
+
+    }
+
+    /* Actions */
+
+    .action-buttons {
+
+        gap: 2px;
+
+    }
+
+    .action-buttons button {
+
+        width: 34px;
+        height: 34px;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .page-header h2 {
+
+        font-size: 24px;
+
+    }
+
+    .page-header p {
+
+        font-size: 13px;
+
+    }
+
+    .filter-header {
+
+        gap: 12px;
+
+    }
+
+    .filter-header h3 {
+
+        font-size: 17px;
+
+    }
+
+    .filter-header span {
+
+        font-size: 13px;
+
+    }
+
+    .table-header {
+
+        padding: 16px;
+
+    }
+
+}
+
+
+@media (max-width:1200px){
+
+    .search-field,
+    .assigned-field,
+    .created-field,
+    .status-field{
+
+        width:calc(50% - 10px);
+
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:16px;
+
+    }
+
+    .header-actions{
+
+        width:100%;
+
+    }
+
+    .add-task-btn{
+
+        width:100%;
+
+    }
+
+    .filter-body{
+
+        flex-direction:column;
+
+    }
+
+    .search-field,
+    .assigned-field,
+    .created-field,
+    .status-field{
+
+        width:100%;
+
+    }
+
+    .filter-actions{
+
+        width:100%;
+
+    }
+
+    .filter-actions button{
+
+        width:100%;
+
+    }
+
 }

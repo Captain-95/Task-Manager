@@ -16,6 +16,10 @@ public class TaskResponse {
     private String description;
     private TaskStatus status;
     private LocalDateTime createdDate;
+    private Long assignedUserId;
+    private String assignedUsername;
+    private Long createdByUserId;
+    private String createdByUsername;
 
     public static TaskResponse fromTask(Task task) {
         return TaskResponse.builder()
@@ -24,6 +28,10 @@ public class TaskResponse {
                 .description(task.getDescription())
                 .status(task.getStatus())
                 .createdDate(task.getCreatedDate())
+                .assignedUserId(task.getAssignedUserId())
+                .assignedUsername(task.getAssignedUsername())
+                .createdByUserId(task.getCreatedByUserId())
+                .createdByUsername(task.getCreatedByUsername())
                 .build();
     }
 }

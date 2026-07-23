@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
@@ -32,6 +33,9 @@ import { TaskDialog } from '../task-dialog/task-dialog';
 import { DeleteDialog } from '../delete-dialog/delete-dialog';
 import { StorageService } from '../../../core/services/storage.service';
 import { CompleteDialog } from '../complete-dialog/complete-dialog';
+import { UserService } from '../../../core/services/user.service';
+import { UserDropdown } from '../../../models/user-dropdown';
+import { TaskFilter } from '../../../models/task-filter';
 
 @Component({
   selector: 'app-task-list',
@@ -61,14 +65,16 @@ import { CompleteDialog } from '../complete-dialog/complete-dialog';
 export class TaskList implements OnInit, AfterViewInit {
 
   private taskService = inject(TaskService);
-
+  private userService = inject(UserService);
   private snackBar = inject(MatSnackBar);
-
   private dialog = inject(MatDialog);
+  private cdr = inject(ChangeDetectorRef);
 
   displayedColumns: string[] = [
     'name',
     'description',
+    'assignedTo',
+    'createdBy',
     'status',
     'createdDate',
     'actions'
@@ -76,11 +82,15 @@ export class TaskList implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<Task>();
 
-  allTasks: Task[] = [];
+  // allTasks: Task[] = [];
 
   searchText = '';
 
-  selectedStatus: string[] = [];
+  selectedStatus?: string;
+  assignedUsers: UserDropdown[] = [];
+  createdByUsers: UserDropdown[] = [];
+  selectedAssignedUser?: number;
+  selectedCreatedByUser?: number;
 
   loading = false;
 
@@ -96,8 +106,8 @@ export class TaskList implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.isAdmin = this.storageService.isAdmin();
-    this.loadTasks();
+  this.isAdmin = this.storageService.isAdmin();
+  this.loadUsers();
 
   }
 
@@ -110,104 +120,94 @@ export class TaskList implements OnInit, AfterViewInit {
   }
 
   loadTasks(): void {
+  this.loading = true;
 
-    this.loading = true;
+  const filter: TaskFilter = {
+    search: this.searchText?.trim() || undefined,
+    assignedUserId: this.selectedAssignedUser,
+    createdByUserId: this.selectedCreatedByUser,
+    status: this.selectedStatus
+  };
 
-    this.taskService.getAllTasks().subscribe({
-
-      next: (response) => {
-
-        this.allTasks = response;
-
-        this.dataSource.data = response;
-
+  this.taskService.searchTasks(filter).subscribe({
+    next: tasks => {
+      setTimeout(() => {
+        this.dataSource.data = tasks;
         this.loading = false;
-
-      },
-
-      error: () => {
-
+      });
+    },
+    error: () => {
+      setTimeout(() => {
         this.loading = false;
-
-        this.snackBar.open(
-          'Unable to load tasks',
-          'Close',
-          {
-            duration: 3000
-          }
-        );
-
-      }
-
-    });
-
-  }
-
-  applySearch(event: Event): void {
-
-    this.searchText = (event.target as HTMLInputElement).value;
-
-    this.filterTasks();
-
-  }
-
-  onStatusChange(event: MatSelectChange): void {
-
-    this.selectedStatus = event.value;
-
-    this.filterTasks();
-
-  }
-
-  filterTasks(): void {
-
-    let filtered = [...this.allTasks];
-
-    if (this.searchText.trim()) {
-
-      const keyword = this.searchText.toLowerCase();
-
-      filtered = filtered.filter(task =>
-
-        task.name.toLowerCase().includes(keyword)
-
-        ||
-
-        task.description?.toLowerCase().includes(keyword)
-
-      );
-
+      });
+      this.snackBar.open('Unable to load tasks', 'Close', { duration: 2500 });
     }
+  });
+}
 
-    if (this.selectedStatus.length > 0) {
+  // applySearch(event: Event): void {
 
-      filtered = filtered.filter(task =>
+  //   this.searchText = (event.target as HTMLInputElement).value;
 
-        this.selectedStatus.includes(task.status)
+  //   this.filterTasks();
 
-      );
+  // }
 
-    }
+  // onStatusChange(event: MatSelectChange): void {
 
-    this.dataSource.data = filtered;
+  //   this.selectedStatus = event.value;
 
-  }
+  //   this.filterTasks();
+
+  // }
+
+  // filterTasks(): void {
+
+  //   let filtered = [...this.allTasks];
+
+  //   if (this.searchText.trim()) {
+
+  //     const keyword = this.searchText.toLowerCase();
+
+  //     filtered = filtered.filter(task =>
+
+  //       task.name.toLowerCase().includes(keyword)
+
+  //       ||
+
+  //       task.description?.toLowerCase().includes(keyword)
+
+  //     );
+
+  //   }
+
+  //   if (this.selectedStatus.length > 0) {
+
+  //     filtered = filtered.filter(task =>
+
+  //       this.selectedStatus.includes(task.status)
+
+  //     );
+
+  //   }
+
+  //   this.dataSource.data = filtered;
+
+  // }
 
   clearFilters(): void {
 
-    this.searchText = '';
-
-    this.selectedStatus = [];
-
-    this.dataSource.data = [...this.allTasks];
+  this.searchText = '';
+  this.selectedAssignedUser = undefined;
+  this.selectedCreatedByUser = undefined;
+  this.selectedStatus = undefined;
+  this.loadTasks();
 
   }
 
   refresh(): void {
 
-    this.clearFilters();
-
-    this.loadTasks();
+    this.clearFilters()
 
   }
 
@@ -464,5 +464,52 @@ export class TaskList implements OnInit, AfterViewInit {
   });
 
   }
+
+  // loadUsers(): void {
+
+  // this.userService.getAssignableUsers().subscribe({
+
+  //   next: users => {
+
+  //     this.assignedUsers = users;
+
+  //     this.createdByUsers = users;
+
+  //     this.loadTasks();
+
+  //   },
+
+  //   error: () => {
+
+  //     this.snackBar.open(
+  //       'Unable to load users',
+  //       'Close',
+  //       {
+  //         duration: 2500
+  //       }
+  //     );
+
+  //   }
+
+  //   });
+
+  // }
+
+loadUsers(): void {
+  this.userService.getAssignableUsers().subscribe({
+    next: users => {
+      setTimeout(() => {
+        this.assignedUsers = users;
+        this.createdByUsers = users;
+        this.loadTasks();
+      });
+    },
+    error: () => {
+      this.snackBar.open('Unable to load users', 'Close', { duration: 2500 });
+    }
+  });
+}
+
+
 
 }

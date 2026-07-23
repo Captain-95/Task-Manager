@@ -1,9 +1,5 @@
 <div class="task-page">
 
-    <!-- ==========================================
-                PAGE HEADER
-    =========================================== -->
-
     <div class="page-header">
 
         <div>
@@ -45,9 +41,7 @@
 
     </div>
 
-    <!-- ==========================================
-                QUICK FILTER
-    =========================================== -->
+
 
     <mat-card class="filter-card">
 
@@ -83,115 +77,161 @@
 
         <div class="filter-body">
 
-            <!-- SEARCH -->
+        <!-- Search -->
 
-            <mat-form-field
-                appearance="outline"
-                class="search-field">
+        <mat-form-field
+            appearance="outline"
+            class="search-field">
 
-                <mat-label>
+            <mat-label>
 
-                    Search Task
+                Search Task
 
-                </mat-label>
+            </mat-label>
 
-                <input
-                    matInput
-                    [(ngModel)]="searchText"
-                    (keyup)="applySearch($event)"
-                    placeholder="Search task...">
+            <input
+                matInput
+                [(ngModel)]="searchText"
+                (keyup)="loadTasks()"
+                placeholder="Search by task name">
 
-                <button
-                    mat-icon-button
-                    matSuffix
-                    disabled>
+            <button mat-icon-button matSuffix disabled>
+                <mat-icon>search</mat-icon>
+            </button>
 
-                    <mat-icon>
+        </mat-form-field>
 
-                        search
+        <!-- Assigned To -->
 
-                    </mat-icon>
+        <mat-form-field
+            appearance="outline"
+            class="assigned-field">
 
-                </button>
+            <mat-label>
 
-            </mat-form-field>
+                Assigned To
 
-            <!-- STATUS -->
+            </mat-label>
 
-            <mat-form-field
-                appearance="outline"
-                class="status-field">
+            <mat-select
+                [(value)]="selectedAssignedUser"
+                (selectionChange)="loadTasks()">
 
-                <mat-label>
+                <mat-option [value]="undefined">
 
-                    Status
+                    All
 
-                </mat-label>
+                </mat-option>
 
-                <mat-select
-                    multiple
-                    [(value)]="selectedStatus"
-                    (selectionChange)="onStatusChange($event)">
+                <mat-option
+                    *ngFor="let user of assignedUsers"
+                    [value]="user.id">
 
-                    <mat-option value="PENDING">
+                    {{ user.username }}
 
-                        Pending
+                </mat-option>
 
-                    </mat-option>
+            </mat-select>
 
-                    <mat-option value="COMPLETED">
+        </mat-form-field>
 
-                        Completed
+        <!-- Created By -->
 
-                    </mat-option>
+        <mat-form-field
+            appearance="outline"
+            class="created-field">
 
-                </mat-select>
+            <mat-label>
 
-            </mat-form-field>
+                Created By
 
-            <!-- BUTTONS -->
+            </mat-label>
 
-            <div class="filter-actions">
+            <mat-select
+                [(value)]="selectedCreatedByUser"
+                (selectionChange)="loadTasks()">
 
-                <!-- <button
-                    mat-flat-button
-                    color="primary"
-                    matTooltip="Search">
+                <mat-option>
 
-                    <mat-icon>
+                    All
 
-                        search
+                </mat-option>
 
-                    </mat-icon>
+                <mat-option
+                    *ngFor="let user of createdByUsers"
+                    [value]="user.id">
 
-                    Search
+                    {{ user.username }}
 
-                </button> -->
+                </mat-option>
 
-                <button
-                    mat-stroked-button
-                    matTooltip="Clear Filters"
-                    (click)="clearFilters()">
+            </mat-select>
 
-                    <mat-icon>
+        </mat-form-field>
 
-                        restart_alt
+        <!-- Status -->
 
-                    </mat-icon>
+        <mat-form-field
+            appearance="outline"
+            class="status-field">
 
-                    Reset
+            <mat-label>
 
-                </button>
+                Status
 
-            </div>
+            </mat-label>
+
+            <mat-select
+                [(value)]="selectedStatus"
+                (selectionChange)="loadTasks()">
+
+                <mat-option>
+
+                    All
+
+                </mat-option>
+
+                <mat-option value="PENDING">
+
+                    Pending
+
+                </mat-option>
+
+                <mat-option value="COMPLETED">
+
+                    Completed
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Reset -->
+
+        <div class="filter-actions">
+
+            <button
+                mat-stroked-button
+                (click)="clearFilters()">
+
+                <mat-icon>
+
+                    restart_alt
+
+                </mat-icon>
+
+                Reset
+
+            </button>
 
         </div>
 
+</div>
+
     </mat-card>
 
-    <!-- ==========================================
-                    TABLE CARD
-    =========================================== -->
+
 
     <mat-card class="table-card">
 
@@ -221,9 +261,7 @@
                 mat-table
                 [dataSource]="dataSource"
                 matSort>
-                <!-- ============================
-        TASK NAME
-============================= -->
+
 
 <ng-container matColumnDef="name">
 
@@ -268,9 +306,7 @@
 
 </ng-container>
 
-<!-- ============================
-        DESCRIPTION
-============================= -->
+
 
 <ng-container matColumnDef="description">
 
@@ -296,9 +332,50 @@
 
 </ng-container>
 
-<!-- ============================
-        STATUS
-============================= -->
+<ng-container matColumnDef="assignedTo">
+
+    <th mat-header-cell *matHeaderCellDef>
+
+        Assigned To
+
+    </th>
+
+    <td mat-cell *matCellDef="let task">
+
+        <div class="user-chip">
+
+            <mat-icon>person</mat-icon>
+
+            {{ task.assignedUsername }}
+
+        </div>
+
+    </td>
+
+</ng-container>
+
+<ng-container matColumnDef="createdBy">
+
+    <th mat-header-cell *matHeaderCellDef>
+
+        Created By
+
+    </th>
+
+    <td mat-cell *matCellDef="let task">
+
+        <div class="user-chip creator">
+
+            <mat-icon>badge</mat-icon>
+
+            {{ task.createdByUsername }}
+
+        </div>
+
+    </td>
+
+</ng-container>
+
 
 <ng-container matColumnDef="status">
 
@@ -340,9 +417,7 @@
 
 </ng-container>
 
-<!-- ============================
-        CREATED DATE
-============================= -->
+
 
 <ng-container matColumnDef="createdDate">
 
@@ -365,9 +440,7 @@
 
 </ng-container>
 
-<!-- ============================
-        ACTIONS
-============================= -->
+
 
 <ng-container matColumnDef="actions">
 
@@ -385,59 +458,40 @@
 
         <div class="action-buttons">
 
-            <button
-                mat-icon-button
-                color="primary"
-                matTooltip="Edit Task"
-                (click)="editTask(task)">
-
-                <mat-icon>
-
-                    edit
-
-                </mat-icon>
-
-            </button>
-
             <span class="disabled-wrapper" [class.disabled]="task.status === 'COMPLETED'">
 
-            <button
+                <button
                 mat-icon-button
+                color="primary"
                 [disabled]="task.status === 'COMPLETED'"
-                [matTooltip]="task.status === 'COMPLETED'
-                    ? 'Task already completed'
-                    : 'Mark as Completed'"
-                (click)="completeTask(task)">
+                [matTooltip]="task.status === 'COMPLETED' ? 'Completed task cannot be edited' : 'Edit Task'"
+                (click)="editTask(task)">
 
-                <mat-icon>
-                    task_alt
-                </mat-icon>
+                <mat-icon> edit</mat-icon>
 
-            </button>
+                </button>
 
             </span>
 
-            <!-- <button
-                class="action-btn delete-btn"
-                mat-icon-button
-                color="warn"
-                matTooltip="Delete Task"
-                (click)="deleteTask(task)"
-                [disabled]="!isAdmin"
-                [matTooltip]="isAdmin ? 'Delete Task' : 'Only Admin can delete tasks'">
+            <span class="disabled-wrapper" [class.disabled]="task.status === 'COMPLETED'">
 
-                <mat-icon>
-
-                    delete_outline
-
-                </mat-icon>
-
-            </button> -->
-
-            <span class="disabled-wrapper" [class.disabled]="!isAdmin">
                 <button
                     mat-icon-button
-                    [disabled]="!isAdmin"
+                    [disabled]="task.status === 'COMPLETED'"
+                    [matTooltip]="task.status === 'COMPLETED' ? 'Task already completed' : 'Mark as Completed'"
+                    (click)="completeTask(task)">
+
+                    <mat-icon>task_alt</mat-icon>
+
+                </button>
+
+            </span >
+
+            <span class="disabled-wrapper" [class.disabled]="task.status === 'COMPLETED'">
+                <button
+                    mat-icon-button
+                    [disabled]="task.status === 'COMPLETED'"
+                    [matTooltip]="task.status === 'COMPLETED' ? 'Completed task cannot be deleted' : 'Delete Task'"
                     (click)="deleteTask(task)">
                     <mat-icon>delete</mat-icon>
                 </button>
@@ -449,9 +503,7 @@
 
 </ng-container>
 
-<!-- ============================
-        HEADER ROW
-============================= -->
+
 
 <tr
     mat-header-row
@@ -469,46 +521,40 @@
 
 </tr>
 
-<!-- ============================
-        NO DATA ROW
-============================= -->
 
-<tr
-    class="mat-row"
-    *matNoDataRow>
+        <tr
+            class="mat-row"
+            *matNoDataRow>
 
-    <td
-        class="mat-cell no-data"
-        colspan="5">
+            <td
+                class="mat-cell no-data"
+                colspan="5">
 
-        <mat-icon>
+                <mat-icon>
 
-            assignment_late
+                    assignment_late
 
-        </mat-icon>
+                </mat-icon>
 
-        <h3>
+                <h3>
 
-            No Tasks Found
+                    No Tasks Found
 
-        </h3>
+                </h3>
 
-        <p>
+                <p>
 
-            Try changing your filters or create a new task.
+                    Try changing your filters or create a new task.
 
-        </p>
+                </p>
 
-    </td>
+            </td>
 
-</tr>
+        </tr>
             </table>
 
         </div>
 
-        <!-- ==========================================
-                        LOADING
-        =========================================== -->
 
         @if (loading) {
 

@@ -19,4 +19,8 @@ public class Task {
     private String description;
     private TaskStatus status;
     private LocalDateTime createdDate;
+    private Long assignedUserId;
+    private String assignedUsername;
+    private Long createdByUserId;
+    private String createdByUsername;
 }

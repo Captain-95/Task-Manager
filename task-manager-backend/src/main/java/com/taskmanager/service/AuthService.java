@@ -13,11 +13,11 @@ import com.taskmanager.repository.UserRepository;
 import com.taskmanager.repository.UserRoleRepository;
 import com.taskmanager.security.CustomUserDetailsService;
 import com.taskmanager.security.JwtUtil;
+import com.taskmanager.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +41,17 @@ public class AuthService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtUtil.generateToken(userDetails);
+        UserPrincipal user = (UserPrincipal) userDetailsService.loadUserByUsername(request.getUsername());
+        String token = jwtUtil.generateToken(user);
 
-        List<String> roles = userDetails.getAuthorities().stream()
+        List<String> roles = user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return JwtResponse.builder()
                 .token(token)
                 .type("Bearer")
-                .username(userDetails.getUsername())
+                .username(user.getUsername())
                 .roles(roles)
                 .build();
     }
