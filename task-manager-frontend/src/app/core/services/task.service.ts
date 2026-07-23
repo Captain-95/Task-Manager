@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Task } from '../../models/task';
 import { TaskRequest } from '../../models/task-request';
 import { TaskFilter } from '../../models/task-filter';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class TaskService {
 
   private http = inject(HttpClient);
 
-  private readonly API = 'http://localhost:8080/api/tasks';
+  private readonly API = `${environment.apiUrl}/tasks`;
 
   getAllTasks(): Observable<Task[]> {
 
